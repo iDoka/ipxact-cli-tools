@@ -35,8 +35,16 @@ field_inst = naming.get_field_inst(field)
 %>\
     ${field_inst} = uvm_reg_field::type_id::create("${field_inst}", null, \
 get_full_name());
-    ${field_inst}.configure(this, ${field.bitWidth}, ${field.bitOffset}, \
-${get_access(field)}, ${get_volatile(field)});
+    ${field_inst}.configure(
+        this, // parent
+        ${field.bitWidth}, // size in bits
+        ${field.bitOffset}, // offset in bits
+        ${get_access(field)}, // access type
+        ${get_volatile(field)}, // is volatile?
+        0, // value by reset
+        0, // has reset?
+        0, // is randomize?
+        0); // individually accessible?
 %   if not loop.last:
 
 %   endif
