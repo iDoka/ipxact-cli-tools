@@ -32,9 +32,10 @@ def get_volatile(field):
 <%
 reg_class = naming.get_register_class(reg)
 %>\
+// ********* ${reg.name}: ${reg.description} *********
 class ${reg_class} extends uvm_reg;
 % for field in reg.field:
-  rand uvm_reg_field ${field.name};
+  rand uvm_reg_field ${field.name}; // ${field.description}
 % endfor
 
 
@@ -42,6 +43,7 @@ class ${reg_class} extends uvm_reg;
 % for field in reg.field:
 <%
 field_inst = naming.get_field_inst(field)
+#reset_inst = field.resets.reset.value
 %>\
     ${field_inst} = uvm_reg_field::type_id::create("${field_inst}", null, \
 get_full_name());
