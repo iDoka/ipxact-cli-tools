@@ -1,7 +1,7 @@
 #!/bin/env python2.7
 
 import sys
-sys.path.append('dependencies/ipyxact')
+sys.path.append('ipyxact')
 
 import argparse
 from ipyxact.ipyxact import Component
