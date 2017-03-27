@@ -11,6 +11,16 @@ def get_access(field):
     }
     return switcher.get(field.access, "RW")
 
+def get_random(field):
+    switcher = {
+        'read-write'    : '1',
+        'read-only'     : '0',
+        'write-only'    : '0',
+        'read-writeOnce': '1',
+        'writeOnce'     : '0',
+    }
+    return switcher.get(field.access, '1')
+
 def get_volatile(field):
     switcher = {
         'true'  : '1',
@@ -43,7 +53,7 @@ get_full_name());
         ${get_volatile(field)}, // is volatile?
         0, // value by reset
         0, // has reset?
-        0, // is randomize?
+        ${get_random(field)}, // is randomize?
         0); // individually accessible?
 %   if not loop.last:
 
