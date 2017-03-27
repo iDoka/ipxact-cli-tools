@@ -1,10 +1,11 @@
-# rgen
-IP-XACT based register generator
+# IP-XACT based CLI-tools
+
+## IP-XACT based UVM-register generator
 
 Use the following command to run:
 
 ```
-rgen.py <path_to_ipxact_xml>
+ipxact2uvm.py <path_to_ipxact_xml>
 ```
 
 Requires:
