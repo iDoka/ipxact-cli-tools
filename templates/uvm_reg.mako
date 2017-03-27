@@ -32,7 +32,7 @@ def get_volatile(field):
 <%
 reg_class = naming.get_register_class(reg)
 %>\
-// ********* ${reg.name}: ${reg.description} *********
+// ********* ${reg.name}: ${reg.description} ********* //
 class ${reg_class} extends uvm_reg;
 % for field in reg.field:
   rand uvm_reg_field ${field.name}; // ${field.description}

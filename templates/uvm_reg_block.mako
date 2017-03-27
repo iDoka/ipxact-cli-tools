@@ -16,6 +16,7 @@ ${"'h{:08X}".format(addressBlock.baseAddress)}, 4, UVM_NO_ENDIAN);
 reg_class = naming.get_register_class(reg)
 reg_inst = naming.get_register_inst(reg)
 %>\
+    // ${reg.name}: ${reg.description}
     reg_inst = reg_class::type_id::create("reg_inst", null, this);
     reg_inst.configure(this);
     reg_inst.build();
