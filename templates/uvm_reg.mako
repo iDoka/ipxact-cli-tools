@@ -43,7 +43,14 @@ class ${reg_class} extends uvm_reg;
 % for field in reg.field:
 <%
 field_inst = naming.get_field_inst(field)
-#reset_inst = field.resets.reset.value
+#if hasattr(field, 'resets'):
+#if field.resets is None:
+try:
+  reset_value = '%X' % (field.resets.reset.value)
+  has_reset = 1
+except AttributeError:
+  reset_value = 0
+  has_reset = 0
 %>\
     ${field_inst} = uvm_reg_field::type_id::create("${field_inst}", null, \
 get_full_name());
@@ -53,10 +60,11 @@ get_full_name());
         ${field.bitOffset}, // offset in bits
         ${get_access(field)}, // access type
         ${get_volatile(field)}, // is volatile?
-        0, // value by reset
-        0, // has reset?
+        ${field.bitWidth}'h${reset_value}, // value by reset
+        ${has_reset}, // has reset?
         ${get_random(field)}, // is randomize?
-        0); // individually accessible?
+        0  // individually accessible?
+    );
 %   if not loop.last:
 
 %   endif
