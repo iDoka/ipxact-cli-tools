@@ -11,7 +11,7 @@ from mako.template import Template
 from mako.runtime import Context
 
 
-parser = argparse.ArgumentParser(description='Generate registers')
+parser = argparse.ArgumentParser(description='Generate registers for UVM')
 parser.add_argument('xml_path', metavar='<xml>', type=file, nargs=1,
                     help='path to IP-XACT XML file to be read')
 args = parser.parse_args()
@@ -20,10 +20,11 @@ args = parser.parse_args()
 component = Component()
 component.load(args.xml_path[0].name)
 addressBlock = component.memoryMaps.memoryMap[0].addressBlock[0]
-
+#busByteWidth = component.memoryMaps.memoryMap[0].addressBlock[0].width / 8
+fileName = component.name.lower() + '_regs.svh'
 
 lookup = TemplateLookup('templates')
-buffer = open('reg_block.svh', 'w')
+buffer = open(fileName, 'w')
 
 for reg in addressBlock.register:
     template = lookup.get_template('uvm_reg.mako')
