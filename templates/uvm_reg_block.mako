@@ -1,5 +1,7 @@
 <%
 import utils.naming as naming
+addressBusByteWidth = addressBlock.width / 8
+addressBusBitWidth  = addressBlock.width
 %>\
 class reg_block extends uvm_reg_block;
 % for reg in addressBlock.register:
@@ -9,7 +11,7 @@ class reg_block extends uvm_reg_block;
 
   virtual function void build();
     default_map = create_map("default_map", \
-${"'h{:08X}".format(addressBlock.baseAddress)}, 4, UVM_NO_ENDIAN);
+${addressBusBitWidth}${"'h{:08X}".format(addressBlock.baseAddress)}, ${addressBusByteWidth}, UVM_LITTLE_ENDIAN);
 
 % for reg in addressBlock.register:
 <%
@@ -20,7 +22,7 @@ reg_inst = naming.get_register_inst(reg)
     reg_inst = reg_class::type_id::create("reg_inst", null, this);
     reg_inst.configure(this);
     reg_inst.build();
-    default_map.add_reg(${reg_inst}, ${"'h{:08X}".format(reg.addressOffset)});
+    default_map.add_reg(${reg_inst}, ${addressBusBitWidth}${"'h{:08X}".format(reg.addressOffset)});
 %   if not loop.last:
 
 %   endif
