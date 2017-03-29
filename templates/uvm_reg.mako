@@ -15,9 +15,9 @@ def get_random(field):
     switcher = {
         'read-write'    : '1',
         'read-only'     : '0',
-        'write-only'    : '0',
+        'write-only'    : '1',
         'read-writeOnce': '1',
-        'writeOnce'     : '0',
+        'writeOnce'     : '1',
     }
     return switcher.get(field.access, '1')
 
