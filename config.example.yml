@@ -1,0 +1,24 @@
+General:
+  Clock: clk
+  Reset: rst
+  ResetIsSync: 0
+  #ResetType: async
+  ResetActiveLevel: 0
+  Endianess: little
+  IsByteIndividuallyAccesible: 0
+Port:
+UVM:
+RTL:
+  BusCSR: APB|AHB|Wishbone|Intel|Motorola
+doc:
+  Language: en|ru
+  Format: asciidoc | markdown | reStructuredText
+  ImageDir: img
+  ImageFormat: svg | png
+  ImageQuality: 300dpi
+  RegisterBitsOnTheLine: 16
+RegisterMap:
+  AddressUnit: byte|word
+Files:
+  - registers.yaml
+  - ports.yaml

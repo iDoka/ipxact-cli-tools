@@ -1,0 +1,23 @@
+General:
+  Clock: clk
+  Reset: rst
+  ResetIsSync: 0
+  ResetActiveLevel: 0
+  Endianess: little
+  IsByteIndividuallyAccesible: 0
+Port:
+UVM:
+RTL:
+  BusCSR: APB
+doc:
+  Language: ru
+  Format: asciidoc
+  ImageDir: img
+  ImageFormat: svg
+  ImageQuality: 600dpi
+  RegisterBitsOnTheLine: 16
+RegisterMap:
+  AddressUnit: word
+Files:
+  - registers.yaml
+  - ports.yaml
