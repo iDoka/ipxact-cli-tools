@@ -1,0 +1,67 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "test"
+msgstr "тест"
+
+msgid "This"
+msgstr "Этот"
+
+############# for Register Map documentation ##############
+msgid  "Register"
+msgstr "Регистр"
+
+msgid  "Registers"
+msgstr "Регистры"
+
+msgid  "Address"
+msgstr "Адрес"
+
+msgid  "Size"
+msgstr "Размер"
+
+msgid  "Reset value"
+msgstr "Значение по сбросу"
+
+msgid  "Access mode"
+msgstr "Режим доступа"
+
+msgid  "Access"
+msgstr "Доступ"
+
+msgid  "Register structure"
+msgstr "Структура регистра"
+
+msgid  "Bit"
+msgstr "Бит"
+
+msgid  "Bits"
+msgstr "Биты"
+
+msgid  "Name"
+msgstr "Имя"
+
+msgid  "Description"
+msgstr "Описание"
+
+msgid  "Symbol"
+msgstr "Обозначение"
+
+msgid  "Page"
+msgstr "Страница"
+
+msgid  "Register map"
+msgstr "Карта регистров"
+
+msgid  "Register Overview"
+msgstr "Обзорная карта регистров"
+
+msgid  "Top level"
+msgstr "Верхний уровень"
+
+#######################################################
+
+msgid  "x"
+msgstr "х"
