@@ -11,8 +11,9 @@ for field in reg.field:
   lsb  = field.bitOffset
   msb  = field.bitOffset + field.bitWidth - 1
 
+  dim = '['+str(size)+':0]' if field.bitWidth > 1 else ''
   for i in range(lsb, msb+1):
-    AssemblyReg[i] = str(field.bitWidth) + '+^| ' + field.name + ' '
+    AssemblyReg[i] = str(field.bitWidth) + '+^| ' + field.name + dim + ' '
 
 #  try:
 #    reset_value = 0x'%08X' % (field.resets.reset.value)
