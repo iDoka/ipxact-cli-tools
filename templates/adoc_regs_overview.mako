@@ -1,6 +1,6 @@
 <%
 reg_name = reg.name.upper()
-AssemblyReg = ['RSVD' for i in range(32)]
+AssemblyReg = ['RSVD' for i in range(data_width)]
 
 hex_addr = '0x%02X' % reg.addressOffset
 #hex_addr = "0x{:02X}".format(reg.addressOffset)
@@ -26,7 +26,7 @@ total = ''
 tmp_name = 'null'
 rsvd_count = 0
 
-for i in reversed(range(0, 32)):
+for i in reversed(range(0, data_width)):
   rsvd_count += 1 if AssemblyReg[i] == 'RSVD' else 0
   if AssemblyReg[i] != tmp_name:
     tmp_name = AssemblyReg[i]

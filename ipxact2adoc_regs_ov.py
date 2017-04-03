@@ -50,6 +50,9 @@ addressBlock = component.memoryMaps.memoryMap[0].addressBlock[0]
 busByteWidth = component.memoryMaps.memoryMap[0].addressBlock[0].width / 8
 busBitWidth  = component.memoryMaps.memoryMap[0].addressBlock[0].width
 
+addr_width = component.memoryMaps.memoryMap[0].addressBlock[0].width
+data_width = component.memoryMaps.memoryMap[0].addressBlock[0].register[0].size
+
 fileName = component.name.lower() + '_table_regs_ov.adoc'
 
 
@@ -62,18 +65,22 @@ lookup = TemplateLookup(directories=['templates'],
 
 buffer = open(fileName, 'w')
 
-buffer.write(""".Register Overview
-[cols="^2e,^2s,32*^1,^3",options="header"]
-|===================================================
-| ADDR | REG |31|30|29|28|27|26|25|24|23|22|21|20|19|18|17|16|15|14|13|12|11|10|9|8|7|6|5|4|3|2|1|0|RST""")
+z=''
+for i in reversed(range(0, data_width)):
+  z += str(i) + '|'
+
+buffer.write('.Register Overview\n')
+buffer.write('[cols="^3e,^3s,'+ str(data_width) +'*^1,^5",options="header"]\n')
+buffer.write('|===================================================\n')
+buffer.write('| ADDR | REG |' + z + ' RST\n')
 
 for reg in addressBlock.register:
     template = lookup.get_template('adoc_regs_overview.mako')
     ctx = Context(buffer,
     	          reg = reg,
     	          cfg = cfg,
-    	          addr_width = component.memoryMaps.memoryMap[0].addressBlock[0].width,
-    	          data_width = component.memoryMaps.memoryMap[0].addressBlock[0].register[0].size)
+    	          addr_width = addr_width,
+    	          data_width = data_width)
     template.render_context(ctx)
 
 buffer.write("\n|===================================================\n")
