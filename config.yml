@@ -9,7 +9,7 @@ Port:
 UVM:
 RTL:
   BusCSR: APB
-doc:
+Doc:
   Language: ru
   Format: asciidoc
   ImageDir: img

@@ -15,7 +15,11 @@ import argparse
 
 import yaml
 
+import gettext
+t = gettext.translation('ipxact', 'languages', languages=['ru'], fallback=True)
+_ = t.ugettext
 
+#import codecs
 
 
 parser = argparse.ArgumentParser(description='Generate Verilog RTL for Config/Status-Register')
@@ -39,6 +43,12 @@ clk = str(cfg['General']['Clock'])
 rst = str(cfg['General']['Reset'])
 rst_level   = int(cfg['General']['ResetActiveLevel'])
 rst_is_sync = int(cfg['General']['ResetIsSync'])
+lang = str(cfg['Doc']['Language'])
+
+
+#### i18n ####
+t = gettext.translation('ipxact', 'languages', languages=[lang], fallback=True)
+_ = t.ugettext
 
 
 
@@ -63,16 +73,22 @@ lookup = TemplateLookup(directories=['templates'],
                         default_filters=['decode.utf8'],
                         encoding_errors='replace')
 
+#buffer = codecs.open(fileName, 'w', encoding='utf-8')
 buffer = open(fileName, 'w')
 
-z=''
+BITFIELDs = ''
 for i in reversed(range(0, data_width)):
-  z += str(i) + '|'
+  BITFIELDs += str(i) + '|'
 
-buffer.write('.Register Overview\n')
+REG_OV = _('Register Overview').encode('utf8')
+ADDR   = _('Address').encode('utf8')
+REG    = _('Register').encode('utf8')
+RSTVAL = _('Reset value').encode('utf8')
+
+buffer.write('.' + REG_OV + '\n')
 buffer.write('[cols="^3e,^3s,'+ str(data_width) +'*^1,^5",options="header"]\n')
 buffer.write('|===================================================\n')
-buffer.write('| ADDR | REG |' + z + ' RST\n')
+buffer.write('| ' + ADDR + ' | ' + REG + ' |' + BITFIELDs + RSTVAL + '\n')
 
 for reg in addressBlock.register:
     template = lookup.get_template('adoc_regs_overview.mako')
