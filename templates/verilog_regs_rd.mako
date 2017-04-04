@@ -1,9 +1,7 @@
 <%
-reg_class = reg.name.lower() + "_reg"
 AssemblyReg = ['RSVD' for i in range(data_width)]
-
-reg_address = "'h{:08X}".format(reg.addressOffset)
-hex_addr = '0x%02X' % reg.addressOffset
+#reg_address = "'h{:08X}".format(reg.addressOffset)
+reg_address =  ("'h%0"+str(addr_width/4)+"X") % reg.addressOffset
 
 for field in reg.field:
   name = field.name.lower() + "_reg"
@@ -36,4 +34,4 @@ for i in reversed(range(0, data_width)):
 total = total[:-1]
 
 %>\
-ADDRESS   ${addr_width}${reg_address}: ${reg.name} = {${total}}; // ${reg.description}
+  ${addr_width}${reg_address}: ${reg.name} = {${total}}; // ${reg.name}: ${reg.description}
