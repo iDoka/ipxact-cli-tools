@@ -50,6 +50,9 @@ addressBlock = component.memoryMaps.memoryMap[0].addressBlock[0]
 busByteWidth = component.memoryMaps.memoryMap[0].addressBlock[0].width / 8
 busBitWidth  = component.memoryMaps.memoryMap[0].addressBlock[0].width
 
+addr_width = component.memoryMaps.memoryMap[0].addressBlock[0].width
+data_width = component.memoryMaps.memoryMap[0].addressBlock[0].register[0].size
+
 fileName = component.name.lower() + '_regs.v'
 
 
@@ -67,15 +70,14 @@ for reg in addressBlock.register:
     ctx = Context(buffer,
     	          reg = reg,
     	          cfg = cfg,
-    	          addr_width = component.memoryMaps.memoryMap[0].addressBlock[0].width,
-    	          data_width = component.memoryMaps.memoryMap[0].addressBlock[0].register[0].size)
+    	          addr_width = addr_width,
+    	          data_width = data_width)
     template.render_context(ctx)
 
-for reg in addressBlock.register:
-    template = lookup.get_template('verilog_regs_rd.mako')
-    ctx = Context(buffer,
-                  reg = reg,
-                  cfg = cfg,
-                  addr_width = component.memoryMaps.memoryMap[0].addressBlock[0].width,
-                  data_width = component.memoryMaps.memoryMap[0].addressBlock[0].register[0].size)
-    template.render_context(ctx)
+template = lookup.get_template('verilog_regs_rd.mako')
+ctx = Context(buffer,
+              register = addressBlock.register,
+              cfg = cfg,
+              addr_width = addr_width,
+              data_width = data_width)
+template.render_context(ctx)
