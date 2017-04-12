@@ -1,10 +1,20 @@
+# -*- coding: utf-8 -*-
+
+%for reg in register:
+<%
+addr_msb = addr_width - 1
+reg_address = ("'h%0"+str(addr_width/4)+"X") % reg.addressOffset
+reg_name    = "%-12s" % reg.name
+%>\
+`define  ${reg_name}  ${addr_width}${reg_address}
+%endfor
 
 
 // Reading data from registers
 reg [:0] data_out;
 
 always @ (*) begin
-  case(addr[:0])  /* synthesis parallel_case */
+  case(addr[${addr_msb}:0])  /* synthesis parallel_case */
 %for reg in register: #.sort(key=lambda i: i.addressOffset):
 <%
 AssemblyReg = ['RSVD' for i in range(data_width)]
@@ -40,9 +50,9 @@ for i in reversed(range(0, data_width)):
     total += str(rsvd_count) + '\'h0' + comma
 
 total = total[:-1]
-
+reg_name    = "%-12s" % reg.name
 %>\
-    ${addr_width}${reg_address}: data_out = {${total}}; // ${reg.name}: ${reg.description}
+    `${reg_name}: data_out = {${total}}; // ${reg.name}: ${reg.description}
 %endfor
     default:      data_out = ${data_width}'h00000000; // the rest is read as 0
   endcase
